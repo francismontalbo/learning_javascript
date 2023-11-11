@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>BMI Calculator</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: rgb(83, 182, 144);
+        }
+
+        .container {
+            width: 375px;
+            height: 100%;
+            margin: 65px auto 5vh;
+            background-color: rgb(161, 174, 169);
+            padding: 15px;
+            box-sizing: border-box;
+            border-radius: 10px;
+            box-shadow: 0 10px 50px rgba(0, 0, 0);
+        }
+
+        #height, #weight {
+            width: 100%;
+            height: 70%;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            padding: 5px;
+        }
+
+        #weight-guide {
+            margin-top: 15px;
+        }
+
+        #results, #classification {
+            font-size: 18px;
+            margin-top: 20px;
+            color: blue;
+        }
+
+        button, #resetBtn {
+            width: 48%;
+            height: 45px;
+            margin-top: 25px;
+            border-radius: 5px;
+            border-style: none;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        button {
+            background-color: blue;
+            color: #fff;
+            margin-right: 2%;
+        }
+
+        #resetBtn {
+            background-color: #ccc;
+            color: #000;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-family: 'Arial';
+        }
+
+        h3 {
+            margin-bottom: 10px;
+        }
+
+        p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>BMI Calculator</h1>
+        <form id="bmiForm">
+            <p>
+                <label for="height">Height:</label>
+                <input type="number" id="height" required>
+                <select id="heightUnit">
+                    <option value="cm">CM</option>
+                    <option value="m">Meters</option>
+                    <option value="in">Inches</option>
+                </select>
+            </p><br>
+            <p>
+                <label for="weight">Weight:</label>
+                <input type="number" id="weight" required>
+                <select id="weightUnit">
+                    <option value="kg">KG</option>
+                    <option value="lb">Pounds</option>
+                </select>
+            </p><br>
+            <button type="submit">Calculate</button>
+            <button type="button" id="resetBtn">Reset</button>
+            <div id="results">---</div>
+            <div id="classification"></div>
+            <div id="weight-guide">
+                <h3>BMI Weight Guide</h3>
+                <p>Under Weight = Less than 18.6</p>
+                <p>Normal Range = 18.6 and 24.9</p>
+                <p>Overweight = Greater than 24.9</p>
+            </div>
+        </form>
+    </div>
+    <script>
+        document.getElementById('bmiForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const height = parseFloat(document.getElementById('height').value);
+            const weight = parseFloat(document.getElementById('weight').value);
+            const heightUnit = document.getElementById('heightUnit').value;
+            const weightUnit = document.getElementById('weightUnit').value;
+            const results = document.getElementById('results');
+            const classification = document.getElementById('classification');
+
+            if (isNaN(height) || height <= 0 || isNaN(weight) || weight <= 0) {
+                results.innerHTML = "Please provide valid height and weight";
+                classification.innerHTML = '';
+            } else {
+                const convertedHeight = heightUnit === 'm' ? height * 100 : height;
+                const convertedWeight = weightUnit === 'lb' ? weight / 2.20462 : weight;
+
+                const bmi = (convertedWeight / ((convertedHeight * convertedHeight) / 10000)).toFixed(2);
+                results.innerHTML = `<span>BMI: ${bmi} kg/m²</span>`;
+                showClassification(bmi);
+            }
+        });
+
+        document.getElementById('resetBtn').addEventListener('click', function () {
+            document.getElementById('bmiForm').reset();
+            document.getElementById('results').innerHTML = '';
+            document.getElementById('classification').innerHTML = '';
+        });
+        
+        function showClassification(bmi) {
+            const classification = document.getElementById('classification');
+            if (bmi < 18.6) {
+                classification.innerHTML = 'Underweight';
+            } else if (bmi >= 18.6 && bmi <= 24.9) {
+                classification.innerHTML = 'Normal Range';
+            } else {
+                classification.innerHTML = 'Overweight';
+            }
+        }
+    </script>
+</body>
+</html>

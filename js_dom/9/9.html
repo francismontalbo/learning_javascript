@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dynamic Table Update</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="main.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+</head>
+<body>
+    <div class="banner">
+        <h1>Dynamic Table Update</h1>
+      </div>
+      <div class="container">
+        <form id="dataForm" class="mx-4 my-3">
+          <div class="form-row">
+            <div class="form-group col-md-4">
+              <label for="name">Name</label>
+              <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            <div class="form-group col-md-4">
+              <label for="age">Age</label>
+              <input type="number" class="form-control" id="age" name="age" required>
+            </div>
+            <div class="form-group col-md-4">
+              <label for="email">Email</label>
+              <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-4">
+              <label for="phone">Phone</label>
+              <input type="text" class="form-control" id="phone" name="phone" required>
+            </div>
+            <div class="form-group col-md-4">
+              <label for="city">City</label>
+              <input type="text" class="form-control" id="city" name="city" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-4">
+              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="button" class="btn btn-secondary" onclick="clearForm()">Clear</button>
+            </div>
+          </div>
+        </form>
+    
+        <div class="entries-range">
+          Show <input type="number" id="entriesRange" value="5" min="1" max="100" class="form-control"> entries
+        </div>
+    
+        <div class="table-container mx-4">
+          <table id="dataTable" class="table table-bordered table-hover">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>City</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Table data will be inserted here dynamically -->
+            </tbody>
+          </table>
+        </div>
+    
+        <!-- Modal for editing -->
+        <div id="editModal" class="modal">
+          <div class="modal-content fade-in">
+            <h2 class="text-center">Edit Entry</h2>
+            <input type="hidden" id="editRowIndex">
+            <div class="form-group">
+              <label for="editName">Name</label>
+              <input type="text" id="editName" class="form-control modal-input" required>
+            </div>
+            <div class="form-group">
+              <label for="editAge">Age</label>
+              <input type="number" id="editAge" class="form-control modal-input" required>
+            </div>
+            <div class="form-group">
+              <label for="editEmail">Email</label>
+              <input type="email" id="editEmail" class="form-control modal-input" required>
+            </div>
+            <div class="form-group">
+              <label for="editPhone">Phone</label>
+              <input type="text" id="editPhone" class="form-control modal-input" required>
+            </div>
+            <div class="form-group">
+              <label for="editCity">City</label>
+              <input type="text" id="editCity" class="form-control modal-input" required>
+            </div>
+            <button class="btn btn-success" onclick="saveEditModal()">Save</button>
+            <button class="btn btn-secondary" onclick="closeEditModal()">Cancel</button>
+          </div>
+        </div>
+      </div>
+    
+      <div class="pagination" id="pagination">
+        <!-- Bootstrap pagination will be inserted here dynamically -->
+      </div>
+    
+      <div class="footer">
+        <p>&copy; 2023 Dynamic Table Update</p>
+      </div>
+</body>
+<script src="main.js"></script>
+</html>

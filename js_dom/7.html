@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background-color: black;
+            color: red;
+            transition: background-color 0.5s, color 0.5s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .white-green {
+            background-color: white;
+            color: green;
+        }
+
+        .blinking {
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { color: red; background-color: inherit; }
+            50% { color: white; background-color: gray; }
+        }
+
+        .centered-text {
+            font-size: 2em;
+            transition: font-size 1s, transform 1s;
+            transform: translate(0, 0);
+        }
+
+        #messageContainer {
+            transition: font-size 1s;
+            font-size: 2em;
+        }
+    </style>
+    <title>World Peace!</title>
+</head>
+<body>
+    <h1 id="msg" class="centered-text">Hello, world!</h1>
+    <button id="changeButton" class="blinking" onclick="changeMsg()">Click me please...</button>
+    <div id="messageContainer" class="centered-text" style="display: none;"></div>
+</body>
+<script>
+    const msgElement = document.getElementById("msg");
+    const changeButton = document.getElementById("changeButton");
+    const messageContainer = document.getElementById("messageContainer");
+    let isHelloWorld = true;
+    
+    const changeMsg = () => {
+        if (isHelloWorld) {
+            msgElement.style.fontSize = "3em";
+            msgElement.style.transition = "font-size 1s, transform 1s";
+            msgElement.style.transform = "translate(0, -50%)";
+            msgElement.innerHTML = "Let's have peace!";
+            changeButton.style.display = "none"; // Hide the button
+            messageContainer.style.display = "block"; // Show the message container
+            messageContainer.style.fontSize = "3em";
+            messageContainer.innerHTML = "The war is over! Thank you!";
+            document.body.classList.add("white-green");
+        } else {
+            msgElement.style.fontSize = "2em";
+            msgElement.style.transition = "font-size 1s, transform 1s";
+            msgElement.style.transform = "translate(0, 0)";
+            msgElement.innerHTML = "Hello, world!";
+            changeButton.style.display = "block"; // Show the button
+            messageContainer.style.display = "none"; // Hide the message container
+            messageContainer.style.fontSize = "2em";
+            messageContainer.innerHTML = "";
+            document.body.classList.remove("white-green");
+        }
+        isHelloWorld = !isHelloWorld;
+    }
+</script>
+</html>

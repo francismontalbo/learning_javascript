@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World Peace!</title>
+</head>
+<body>
+    <h1 id="msg">Hello, world!</h1>
+    <button onclick="changeMsg()">Click me please...</button>
+</body>
+<script>
+    const msgElement = document.getElementById("msg");
+    let isHelloWorld = true;
+    
+    const changeMsg = () => {
+        if (isHelloWorld) {
+            msgElement.innerHTML = "Let's have peace!";
+        } else {
+            msgElement.innerHTML = "Hello, world!";
+        }
+        isHelloWorld = !isHelloWorld;
+    }
+</script>
+</html>

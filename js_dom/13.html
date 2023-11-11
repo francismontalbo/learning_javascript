@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Click the Button Game</title>
+</head>
+<body>
+
+<label for="playerName">Your Name:</label>
+<input type="text" id="playerName" required>
+
+<label for="timerSelect">Select Timer:</label>
+<select id="timerSelect">
+  <option value="10">10 seconds</option>
+  <option value="20">20 seconds</option>
+  <option value="30">30 seconds</option>
+</select>
+
+<button id="clickButton">Click me!</button>
+<p id="score">Score: 0</p>
+<p id="timer">Time Remaining: --</p>
+
+<script>
+  let playerName = "";
+  let score = 0;
+  let clickCount = 0;
+  let maxClicks = 100;
+  let timerInterval;
+
+  const playerNameInput = document.getElementById('playerName');
+  const clickButton = document.getElementById('clickButton');
+  const scoreDisplay = document.getElementById('score');
+  const timerSelect = document.getElementById('timerSelect');
+  const timerDisplay = document.getElementById('timer');
+
+  clickButton.addEventListener('click', () => {
+    playerName = playerNameInput.value.trim();
+
+    if (!playerName) {
+      alert('Please enter your name before playing.');
+      return;
+    }
+
+    score++;
+    clickCount++;
+
+    if (clickCount % 20 === 0 && clickCount <= maxClicks) {
+      clickButton.style.backgroundColor = getRandomColor();
+    }
+
+    scoreDisplay.textContent = `Score: ${score}`;
+
+    if (clickCount === 1) {
+      startTimer(timerSelect.value);
+    }
+
+    if (clickCount === maxClicks) {
+      clearInterval(timerInterval);
+      promptGameOver();
+    }
+  });
+
+  timerSelect.addEventListener('change', () => {
+    clearInterval(timerInterval);
+    clickCount = 0;
+    score = 0;
+    scoreDisplay.textContent = `Score: ${score}`;
+    clickButton.style.backgroundColor = ''; // Reset button color
+    timerDisplay.textContent = 'Time Remaining: --';
+  });
+
+  function startTimer(seconds) {
+    let timeRemaining = seconds;
+    timerDisplay.textContent = `Time Remaining: ${timeRemaining} seconds`;
+
+    timerInterval = setInterval(() => {
+      timeRemaining--;
+      timerDisplay.textContent = `Time Remaining: ${timeRemaining} seconds`;
+
+      if (timeRemaining <= 0) {
+        clearInterval(timerInterval);
+        promptGameOver();
+      }
+    }, 1000);
+  }
+
+  function promptGameOver() {
+    const message = `Game Over, ${playerName}! Your score: ${score}\nDo you want to play again?`;
+    const playAgain = confirm(message);
+
+    if (playAgain) {
+      playerNameInput.value = ""; // Reset name input
+      playerName = "";
+      timerSelect.value = "10"; // Reset timer dropdown
+      clickCount = 0;
+      score = 0;
+      scoreDisplay.textContent = `Score: ${score}`;
+      clickButton.style.backgroundColor = ''; // Reset button color
+      startTimer(timerSelect.value);
+    } else {
+      alert(`Thanks for playing, ${playerName}!`);
+    }
+  }
+
+  function getRandomColor() {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
+</script>
+
+</body>
+</html>

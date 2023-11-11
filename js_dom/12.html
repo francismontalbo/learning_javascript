@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Click the Button Game</title>
+</head>
+<body>
+
+<button id="clickButton">Click me!</button>
+<p id="score">Score: 0</p>
+
+<script>
+  let score = 0;
+
+  const clickButton = document.getElementById('clickButton');
+  const scoreDisplay = document.getElementById('score');
+
+  clickButton.addEventListener('click', () => {
+    score++;
+    scoreDisplay.textContent = `Score: ${score}`;
+  });
+</script>
+
+</body>
+</html>

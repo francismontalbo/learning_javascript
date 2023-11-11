@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background-color: black;
+            color: red;
+            transition: background-color 0.5s, color 0.5s;
+        }
+
+        .white-green {
+            background-color: white;
+            color: green;
+        }
+
+        .blinking {
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { color: red; background-color: inherit; }
+            50% { color: white; background-color: gray; }
+        }
+    </style>
+    <title>World Peace!</title>
+</head>
+<body>
+    <h1 id="msg">Hello, world!</h1>
+    <button id="changeButton" class="blinking" onclick="changeMsg()">Click me please...</button>
+</body>
+<script>
+    const msgElement = document.getElementById("msg");
+    const changeButton = document.getElementById("changeButton");
+    let isHelloWorld = true;
+
+    const changeMsg = () => {
+        if (isHelloWorld) {
+            msgElement.innerHTML = "Let's have peace!";
+            changeButton.innerHTML = "No more WAR! It has ended!";
+            document.body.classList.add("white-green");
+            changeButton.classList.remove("blinking");
+            changeButton.disabled = true; // Disable the button
+        } else {
+            msgElement.innerHTML = "Hello, world!";
+            changeButton.innerHTML = "Click me please...";
+            document.body.classList.remove("white-green");
+            changeButton.classList.add("blinking");
+            changeButton.disabled = false; // Enable the button
+        }
+        isHelloWorld = !isHelloWorld;
+    }
+</script>
+</html>
